@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 
 const VALID_STATUSES = ["OPEN", "CLOSED", "DRAFT"];
@@ -30,16 +30,20 @@ async function validateRecruiter(recruiterId?: number) {
 }
 
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const idFromParams = Number(params.id);
+  const resolved = await params;
+  const idFromParams = Number(resolved.id);
   const body = await req.json().catch(() => null);
   if (!body) {
     return NextResponse.json({ error: "Invalid payload." }, { status: 400 });
   }
 
-  const idFromBody = typeof (body as any)?.id === "number" ? (body as any).id : Number((body as any)?.id);
+  const idFromBody =
+    typeof (body as any)?.id === "number"
+      ? (body as any).id
+      : Number((body as any)?.id);
   const id = Number.isNaN(idFromParams) ? idFromBody : idFromParams;
 
   if (!Number.isFinite(id)) {
@@ -106,16 +110,24 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const idFromParams = Number(params.id);
+  const resolved = await params;
+  const idFromParams = Number(resolved.id);
   const body = await req.json().catch(() => null);
   const recruiterId = body?.recruiterId as number | undefined;
   const idFromBody =
-    typeof (body as any)?.id === "number" ? (body as any).id : Number((body as any)?.id);
+    typeof (body as any)?.id === "number"
+      ? (body as any).id
+      : Number((body as any)?.id);
   const id = Number.isNaN(idFromParams) ? idFromBody : idFromParams;
-  console.log("DELETE job-postings id param:", params.id, "body id:", idFromBody);
+  console.log(
+    "DELETE job-postings id param:",
+    resolved.id,
+    "body id:",
+    idFromBody
+  );
 
   if (!Number.isFinite(id)) {
     return NextResponse.json({ error: "ID tidak valid." }, { status: 400 });

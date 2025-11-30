@@ -526,7 +526,6 @@ export default function RecruiterJobsPage() {
                           setDescription((e.target as HTMLDivElement).innerHTML)
                         }
                         className="min-h-[120px] rounded-b-xl px-3 py-2 text-sm focus:outline-none"
-                        placeholder="Ringkasan singkat peran..."
                         dangerouslySetInnerHTML={{ __html: description }}
                       />
                     </div>

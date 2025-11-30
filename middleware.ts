@@ -27,24 +27,23 @@ export async function middleware(req: NextRequest) {
 
   const res = NextResponse.next();
 
-  const supabase = createServerClient<Database>(supabaseUrl, supabaseKey, {
-    cookies: {
-      get(name: string) {
-        return req.cookies.get(name)?.value;
-      },
-      set(name: string, value: string, options: any) {
-        res.cookies.set(name, value, options);
-      },
-      remove(name: string, options: any) {
-        res.cookies.delete(name, options);
-      },
-    },
-    headers: {
-      get(name: string) {
-        return req.headers.get(name) ?? undefined;
-      },
-    },
-  });
+  const supabase = createServerClient<Database>(
+    supabaseUrl,
+    supabaseKey,
+    {
+      cookies: {
+        get(name: string) {
+          return req.cookies.get(name)?.value;
+        },
+        set(name: string, value: string, options?: any) {
+          res.cookies.set({ name, value, ...options });
+        },
+        remove(name: string, options?: any) {
+          res.cookies.delete({ name, ...options });
+        },
+      } as any,
+    }
+  );
 
   const {
     data: { session },
