@@ -15,7 +15,18 @@ export default function RecruiterLayout({
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <aside className="hidden w-64 flex-shrink-0 border-r border-slate-200 bg-white p-6 shadow-sm lg:block">
+      <header className="flex w-full items-center justify-between border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+        <Link href="/recruiter/jobs" className="text-lg font-semibold text-slate-900">
+          MyPortal Recruiter
+        </Link>
+        <Link
+          href="/logout"
+          className="text-xs font-semibold text-purple-700 hover:underline"
+        >
+          Logout
+        </Link>
+      </header>
+      <aside className="hidden w-64 flex-shrink-0 border-r border-slate-200 bg-white p-6 shadow-sm lg:flex lg:flex-col">
         <div className="mb-8">
           <Link href="/recruiter/jobs" className="text-xl font-semibold text-slate-900">
             <span className="mr-2 inline-flex items-center text-purple-700">
@@ -58,6 +69,14 @@ export default function RecruiterLayout({
           >
             <ClipboardList size={16} />
             Applications
+          </Link>
+        </div>
+        <div className="mt-auto border-t border-slate-200 pt-4 text-xs">
+          <Link
+            href="/logout"
+            className="font-semibold text-purple-700 hover:underline"
+          >
+            Logout
           </Link>
         </div>
       </aside>

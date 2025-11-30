@@ -27,7 +27,7 @@ export default function MainLayout({
 
   return (
     <div className="flex min-h-screen bg-slate-50">
-      <aside className="hidden w-64 flex-shrink-0 border-r border-slate-200 bg-white p-6 shadow-sm lg:block">
+      <aside className="hidden w-64 flex-shrink-0 border-r border-slate-200 bg-white p-6 shadow-sm lg:block lg:flex lg:flex-col">
         <Link
           href={isRecruiter ? "/recruiter/jobs" : "/jobs"}
           className="text-xl font-semibold text-slate-900"
@@ -84,6 +84,14 @@ export default function MainLayout({
             </>
           )}
         </nav>
+        <div className="mt-auto border-t border-slate-200 pt-4 text-xs">
+          <Link
+            href="/logout"
+            className="font-semibold text-purple-700 hover:underline"
+          >
+            Logout
+          </Link>
+        </div>
       </aside>
       <main className="flex-1 px-4 py-8 lg:px-8">{children}</main>
     </div>

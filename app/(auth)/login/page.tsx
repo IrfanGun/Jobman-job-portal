@@ -37,7 +37,7 @@ export default function LoginPage() {
       .maybeSingle();
 
     const destination =
-      profile?.role === "RECRUITER" ? "/chat" : "/jobs";
+      profile?.role === "RECRUITER" ? "/recruiter/jobs" : "/jobs";
 
     router.push(destination);
   };
